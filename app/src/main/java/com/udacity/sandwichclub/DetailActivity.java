@@ -19,6 +19,8 @@ import butterknife.ButterKnife;
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
+    public static final String TAG = "DetailActivity";
+
     private static final int DEFAULT_POSITION = -1;
     private static final int MINIMUM_TEXT_SIZE = 2;
     @BindView(R.id.image_iv)
@@ -58,7 +60,7 @@ public class DetailActivity extends AppCompatActivity {
         String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
         String json = sandwiches[position];
         Sandwich sandwich = JsonUtils.parseSandwichJson(json);
-        Log.v("sandwich", sandwich.toString());
+        Log.v(TAG, sandwich.toString());
         if (sandwich == null) {
             // Sandwich data unavailable
             closeOnError();
@@ -74,6 +76,10 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Populates the UI of the detail Activity from the specific Sandwich
+     * @param sandwich
+     */
     private void populateUI(Sandwich sandwich) {
         Picasso.with(this)
                 .load(sandwich.getImage())
